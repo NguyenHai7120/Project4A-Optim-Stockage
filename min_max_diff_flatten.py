@@ -22,8 +22,7 @@ def Encoder(X, start_by_min = True):
     Y = np.zeros(X.shape)
     is_min = start_by_min
     Y[:, 0] = X[:,0] - min_im[0]
-    dis = (X[:,1:] - min_im[1:]) > (X[:,1:] - max_im[1:])
-    for d in range(1,D):
-        dis = (X[:,d-1] - min_im[d-1]) > (max_im[d] - X[:,d])
-        Y[:,d] = (X[:,d] - min_im[d])*dis + (max_im[d] - X[:,d])*
+    dis = (X[:,:-1] - min_im[:-1]) > (X[:,:-1] - max_im[:-1])
+    Y[:,1:] = (X[:,1:] - min_im[1:])*dis +    
+
 
