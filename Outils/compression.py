@@ -4,7 +4,7 @@ import cv2
 import pathlib
 
 
-def single_compression(im_set, method):
+def single_compression(im_set, path, method):
     '''
     PNG compression
     im_set: set of image of shape (N, H, W, C)
@@ -13,11 +13,13 @@ def single_compression(im_set, method):
 
     N = im_set.shape[0]
 
-    origin_path = '/home/mhnguyen/4GMM 2/Projet Tutore/Project4A-Optim-Stockage/Saved_datas'
-    os.chdir(origin_path)
+    # origin_path = '/home/mhnguyen/4GMM 2/Projet Tutore/Project4A-Optim-Stockage/Saved_datas'
+    # os.chdir(origin_path)
 
-    path = origin_path + '/' + method
+    # path = origin_path + '/' + method
 
+    path = path + '/' + method
+    
     if os.path.exists(path):
         # os.rmdir(path)
         files = glob.glob(path + '/*')
