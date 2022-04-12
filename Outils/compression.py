@@ -28,6 +28,6 @@ def single_compression(im_set, path, method):
     else:
         os.mkdir(path)
     
-    os.chdir(path)
+    # os.chdir(path)
     for i in range(N):
-        cv2.imwrite(str(i) + ".png", im_set[i])
+        cv2.imwrite(path + str(i) + ".png", im_set[i])
