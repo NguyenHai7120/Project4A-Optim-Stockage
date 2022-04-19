@@ -24,7 +24,7 @@ def image_decoder(I_encoded, level, Imin, Imax, m = 20, block_size = (2,2,1)):
     I_hat = Imin + np.floor(np.kron(level, np.ones(block_size))*(Imax - Imin)/m)
     return I_encoded + I_hat
 
-def MMPredictive_Encoder(X, m = 20, block_size = (2,2,1)):
+def Encoder(X, m = 20, block_size = (2,2,1)):
     '''
     Min Max Predictive Encoder
     Input: X - numpy array of shape (N, H, W, C)
@@ -48,7 +48,7 @@ def MMPredictive_Encoder(X, m = 20, block_size = (2,2,1)):
 
     return np.array(Y), np.array(L), Imin, Imax
 
-def MMPredictive_Decoder(Y, L, Imin, Imax, m = 20, block_size = (2,2,1)):
+def Decoder(Y, L, Imin, Imax, m = 20, block_size = (2,2,1)):
     '''
     Min Max Predictive Encoder
     Input: Y - numpy array of shape (N, H, W, C), difference between predictive images and original images
