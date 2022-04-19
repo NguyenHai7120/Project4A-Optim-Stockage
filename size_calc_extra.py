@@ -4,6 +4,7 @@ import numpy as np
 import glob
 from min_max_predictive import MMPredictive_Encoder, MMPredictive_Decoder, image_decoder, image_encoder
 from delta import Delta_Decoder, Delta_Encoder
+import matplotlib.pyplot as plt
 
 
 #used for calculating size in general
@@ -58,20 +59,29 @@ def size_calc(X_test, L_encoded, X_encoded, Imin, Imax):
 
 
 #used for calculating size after clustering
-def cluster_calc(n_clusters, clusters):
+def cluster_calc(n_clusters, clusters, X):
 
     list_sum = np.zeros(n_clusters)
     list_ogsum = np.zeros(n_clusters)
 
-    for i in range(0, n_clusters): #2 is n_clusters
+    for i in range(0, n_clusters): 
         cluster_elements = np.empty([32, 32, 3])
         cluster_elements = cluster_elements[...,np.newaxis]
         cluster_idx = np.where(clusters==i)
         for k in cluster_idx[0]:
-            cluster_elements = np.concatenate((cluster_elements,X[k][...,np.newaxis]),axis=3)
+            cluster_elements = np.concatenate((cluster_elements, X[k][...,np.newaxis]),axis=3)
         cluster_elements = np.transpose(cluster_elements, (3, 0, 1, 2))
         X_encoded, L, Imin, Imax = MMPredictive_Encoder(cluster_elements)
         L_encoded = Delta_Encoder(L)
         sum, ogsum = size_calc(cluster_elements, L_encoded, X_encoded, Imin, Imax)
         list_sum[i] = sum
         list_ogsum[i] = ogsum
+    result_plot(list_sum, list_ogsum)
+
+def result_plot(sum, ogsum):
+    plt.plot(sum, label = 'Storage cost of compressed cluster set #')
+    plt.plot(ogsum, label = 'Storage cost of original cluster set #')
+    plt.xlabel('#nr of cluster')
+    plt.ylabel('Storage cost [byte]')
+    plt.legend()
+    plt.show()
